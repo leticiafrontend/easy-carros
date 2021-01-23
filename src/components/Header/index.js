@@ -1,5 +1,6 @@
 import React from 'react';
-import { Container, HeaderStyle, Logo } from './style';
+import { Container } from '../../styles/container';
+import { HeaderStyle, Logo } from './style';
 import logo from '../../images/logo.svg';
 
 export const Header = () => {
