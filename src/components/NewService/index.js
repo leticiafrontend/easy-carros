@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container } from '../../styles/container';
 import {
   NewServiceStyle,
@@ -15,6 +15,34 @@ import {
 } from './style';
 
 export const NewService = () => {
+  const [inputBox, setInputBox] = useState({
+    name: '',
+    plate: '',
+  });
+
+  const validationInput = ({ target }) => {
+    const input = target;
+    const { id, value } = target;
+
+    setInputBox({ ...inputBox, [id]: value });
+
+    if (value.length <= 0) {
+      input.style.borderBottom = '1px solid #F91919';
+      input.nextElementSibling.style.color = '#F91919';
+    } else {
+      input.nextElementSibling.style.color = '#707070';
+    }
+  };
+
+  // eslint-disable-next-line no-extend-native
+  Date.prototype.toDateInputValue = function () {
+    let local = new Date(this);
+    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+    return local.toJSON().slice(0, 10);
+  };
+
+  const dateNow = new Date().toDateInputValue();
+
   return (
     <Container>
       <NewServiceStyle>
@@ -22,7 +50,14 @@ export const NewService = () => {
         <Paragrafo>Os campos com * são obrigatórios</Paragrafo>
         <Inputs>
           <InputBox>
-            <Input type="text" name="name" id="name" required />
+            <Input
+              type="text"
+              name="name"
+              id="name"
+              value={inputBox.name}
+              onChange={validationInput}
+              required
+            />
             <Label htmlFor="name">Serviço*</Label>
             <Underline />
           </InputBox>
@@ -31,7 +66,7 @@ export const NewService = () => {
               type="date"
               name="date"
               id="date"
-              defaultValue="2020-01-20"
+              defaultValue={dateNow}
               style={{ marginTop: 0 }}
               required
             />
@@ -39,7 +74,14 @@ export const NewService = () => {
             <Underline />
           </InputBox>
           <InputBox>
-            <Input type="text" name="plate" id="plate" required />
+            <Input
+              type="text"
+              name="plate"
+              id="plate"
+              value={inputBox.plate}
+              onChange={validationInput}
+              required
+            />
             <Label htmlFor="plate">Placa*</Label>
             <Underline />
           </InputBox>
