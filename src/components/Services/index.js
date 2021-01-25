@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container } from '../../styles/container';
-import { ModalFinish } from '../../components/ModalFinish';
+import { ModalFinish } from '../ModalFinish';
+import { ModalRemove } from '../ModalRemove';
 import {
   ButtonFinish,
   ButtonRemove,
@@ -20,16 +21,16 @@ import check from '../../images/check-icon.svg';
 export const Services = () => {
   const servicesAg = JSON.parse(localStorage.getItem('services')) || [];
 
-  const removeService = ({ target }) => {
-    const { id } = target;
-    servicesAg.splice(id, 1);
-    localStorage.setItem('services', JSON.stringify(servicesAg));
-  };
-
   const modalFinish = ({ target }) => {
     const finish = document.querySelector('#finish');
     finish.style.display = 'flex';
     finish.setAttribute('data-id', target.id);
+  };
+
+  const modalRemove = ({ target }) => {
+    const remove = document.querySelector('#remove');
+    remove.style.display = 'flex';
+    remove.setAttribute('data-id', target.id);
   };
 
   return (
@@ -57,7 +58,7 @@ export const Services = () => {
                   <DateService>{service.data_agendamento}</DateService>
                   <Plate>{service.placa}</Plate>
                   <TdBody>
-                    <ButtonRemove id={index} onClick={removeService}>
+                    <ButtonRemove id={index} onClick={modalRemove}>
                       <img src={exit} alt="exit" />
                       Excluir
                     </ButtonRemove>
@@ -75,6 +76,7 @@ export const Services = () => {
         </Table>
       </ServicesStyle>
       <ModalFinish />
+      <ModalRemove />
     </Container>
   );
 };
