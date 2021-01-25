@@ -26,7 +26,8 @@ export const ModalFinish = () => {
   const finishService = () => {
     const id = document.querySelector('[data-id]');
     const idData = id.dataset.id;
-    const executionService = `${execution.date} ${execution.time}`;
+    const date = execution.date.split('-').reverse().join('/');
+    const executionService = `${date} ${execution.time}`;
 
     nextServices[idData].data_execucao = executionService;
     localStorage.setItem('services', JSON.stringify(nextServices));

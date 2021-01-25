@@ -66,7 +66,9 @@ export const NewService = () => {
     } else {
       nextServices.push({
         servico_realizado: inputBox.name,
-        data_agendamento: inputBox.date,
+        data_agendamento: `${inputBox.date.split('-').reverse().join('/')} ${
+          inputBox.time
+        }`,
         placa: inputBox.plate,
         data_execucao: '',
       });
