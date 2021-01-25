@@ -123,6 +123,7 @@ export const NewService = () => {
               style={{ borderBottom: '2px solid #0c5990' }}
               required
             />
+            <Label htmlFor="time">Horário de Agendamento*</Label>
           </InputBox>
           <InputBox>
             <Input

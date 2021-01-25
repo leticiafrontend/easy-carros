@@ -35,7 +35,7 @@ export const ButtonYes = styled.button`
   border: 1px solid #02e64a;
   padding: 12px 50px;
   font-weight: 600;
-  &: hover {
+  &:hover {
     background-color: #19f9201f;
   }
 `;
