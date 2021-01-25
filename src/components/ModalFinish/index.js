@@ -23,17 +23,25 @@ export const ModalFinish = () => {
     setExecution({ ...execution, [id]: value });
   };
 
-  const finishService = () => {
-    const id = document.querySelector('[data-id]');
-    const idData = id.dataset.id;
-    const date = execution.date.split('-').reverse().join('/');
-    const executionService = `${date} ${execution.time}`;
+  const finishService = ({ target }) => {
+    const erro = document.querySelector('.error');
+    if (execution.date === '' || execution.time === '') {
+      erro.innerText = 'Preencha todos os campos!';
+    } else {
+      const id = document.querySelector('[data-id]');
+      const idData = id.dataset.id;
+      const date = execution.date.split('-').reverse().join('/');
+      const executionService = `${date} ${execution.time}`;
 
-    nextServices[idData].data_execucao = executionService;
-    localStorage.setItem('services', JSON.stringify(nextServices));
+      nextServices[idData].data_execucao = executionService;
+      localStorage.setItem('services', JSON.stringify(nextServices));
 
-    const finish = document.querySelector('#finish');
-    finish.style.display = 'none';
+      setExecution({ date: '', time: '' });
+      erro.innerText = '';
+
+      const finish = document.querySelector('#finish');
+      finish.style.display = 'none';
+    }
   };
 
   return (
@@ -65,6 +73,10 @@ export const ModalFinish = () => {
             />
           </InputBox>
         </Inputs>
+        <p
+          className="error"
+          style={{ color: '#f91919', textAlign: 'center', marginTop: '20px' }}
+        ></p>
         <ButtonFinish onClick={finishService}>
           <img src={check} alt="check" />
           Finalizar
