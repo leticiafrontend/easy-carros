@@ -39,10 +39,10 @@ export const NewService = () => {
     setInputBox({ ...inputBox, [id]: value });
 
     if (value.length <= 0) {
-      input.style.borderBottom = '1px solid #F91919';
+      input.style.borderBottom = '1px solid #f91919';
       input.nextElementSibling.style.color = '#F91919';
     } else {
-      input.style.borderBottom = '1px solid #707070 !important';
+      input.style.borderBottom = '1px solid #707070';
       if (input.nextElementSibling) {
         input.nextElementSibling.style.color = '#707070';
       }
@@ -56,14 +56,13 @@ export const NewService = () => {
   const nextServices = JSON.parse(localStorage.getItem('services')) || [];
 
   const addService = () => {
-    const inputs = document.querySelectorAll('input');
+    const inputName = document.querySelector('#name');
+    const inputPlate = document.querySelector('#plate');
     if (inputBox.name.length <= 0 || inputBox.plate.length <= 0) {
-      inputs.forEach((input) => {
-        if (input.value === '') {
-          input.style.borderBottom = '1px solid #F91919';
-          input.nextElementSibling.style.color = '#F91919';
-        }
-      });
+      inputName.style.borderBottom = '1px solid #F91919';
+      inputPlate.style.borderBottom = '1px solid #F91919';
+      inputName.nextElementSibling.style.color = '#F91919';
+      inputPlate.nextElementSibling.style.color = '#F91919';
     } else {
       nextServices.push({
         servico_realizado: inputBox.name,
@@ -76,9 +75,11 @@ export const NewService = () => {
 
       localStorage.setItem('services', JSON.stringify(nextServices));
 
-      inputs.forEach((input) => {
-        console.log(input.value);
-      });
+      inputName.style.borderBottom = '1px solid #707070';
+      inputPlate.style.borderBottom = '1px solid #707070';
+      inputName.nextElementSibling.style.color = '#707070';
+      inputPlate.nextElementSibling.style.color = '#707070';
+
       resetInput();
       showNotification();
     }
