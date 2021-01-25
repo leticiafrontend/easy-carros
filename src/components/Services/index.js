@@ -53,7 +53,7 @@ export const Services = () => {
                 <TrBody key={index}>
                   <NameService>{service.servico_realizado}</NameService>
                   <DateService>
-                    {service.data_execucao ? service.data_execucao : '--'}
+                    {service.data_execucao ? service.data_execucao : '---'}
                   </DateService>
                   <DateService>{service.data_agendamento}</DateService>
                   <Plate>{service.placa}</Plate>
@@ -64,10 +64,14 @@ export const Services = () => {
                     </ButtonRemove>
                   </TdBody>
                   <TdBody>
-                    <ButtonFinish id={index} onClick={modalFinish}>
-                      <img src={check} alt="check" />
-                      Finalizar
-                    </ButtonFinish>
+                    {service.data_execucao === '' ? (
+                      <ButtonFinish id={index} onClick={modalFinish}>
+                        <img src={check} alt="check" />
+                        Finalizar
+                      </ButtonFinish>
+                    ) : (
+                      ''
+                    )}
                   </TdBody>
                 </TrBody>
               );
