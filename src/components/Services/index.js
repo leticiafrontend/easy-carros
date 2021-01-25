@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container } from '../../styles/container';
+import { ModalFinish } from '../../components/ModalFinish';
 import {
   ButtonFinish,
   ButtonRemove,
@@ -17,12 +18,18 @@ import exit from '../../images/exit-icon.svg';
 import check from '../../images/check-icon.svg';
 
 export const Services = () => {
-  const servicesAg = JSON.parse(localStorage.getItem('services'));
+  const servicesAg = JSON.parse(localStorage.getItem('services')) || [];
 
   const removeService = ({ target }) => {
     const { id } = target;
     servicesAg.splice(id, 1);
     localStorage.setItem('services', JSON.stringify(servicesAg));
+  };
+
+  const modalFinish = ({ target }) => {
+    const finish = document.querySelector('#finish');
+    finish.style.display = 'flex';
+    finish.setAttribute('data-id', target.id);
   };
 
   return (
@@ -56,7 +63,7 @@ export const Services = () => {
                     </ButtonRemove>
                   </TdBody>
                   <TdBody>
-                    <ButtonFinish id={index}>
+                    <ButtonFinish id={index} onClick={modalFinish}>
                       <img src={check} alt="check" />
                       Finalizar
                     </ButtonFinish>
@@ -67,6 +74,7 @@ export const Services = () => {
           </tbody>
         </Table>
       </ServicesStyle>
+      <ModalFinish />
     </Container>
   );
 };

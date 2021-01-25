@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Inputs,
   InputBox,
@@ -11,8 +11,32 @@ import {
 import check from '../../images/check-icon.svg';
 
 export const ModalFinish = () => {
+  const nextServices = JSON.parse(localStorage.getItem('services')) || [];
+
+  const [execution, setExecution] = useState({
+    date: '',
+    time: '',
+  });
+
+  const executionChange = ({ target }) => {
+    const { id, value } = target;
+    setExecution({ ...execution, [id]: value });
+  };
+
+  const finishService = () => {
+    const id = document.querySelector('[data-id]');
+    const idData = id.dataset.id;
+    const executionService = `${execution.date} ${execution.time}`;
+
+    nextServices[idData].data_execucao = executionService;
+    localStorage.setItem('services', JSON.stringify(nextServices));
+
+    const finish = document.querySelector('#finish');
+    finish.style.display = 'none';
+  };
+
   return (
-    <ModalContainer>
+    <ModalContainer id="finish">
       <ModalContent>
         <h2>Data e horário da execução do serviço:</h2>
         <Inputs>
@@ -21,6 +45,8 @@ export const ModalFinish = () => {
               type="date"
               name="date"
               id="date"
+              value={execution.date}
+              onChange={executionChange}
               style={{ borderBottom: '2px solid #0c5990' }}
               required
             />
@@ -31,12 +57,14 @@ export const ModalFinish = () => {
               type="time"
               name="time"
               id="time"
+              value={execution.time}
+              onChange={executionChange}
               style={{ borderBottom: '2px solid #0c5990' }}
               required
             />
           </InputBox>
         </Inputs>
-        <ButtonFinish>
+        <ButtonFinish onClick={finishService}>
           <img src={check} alt="check" />
           Finalizar
         </ButtonFinish>
