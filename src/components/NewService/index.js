@@ -15,8 +15,18 @@ import {
 } from './style';
 
 export const NewService = () => {
+  // eslint-disable-next-line no-extend-native
+  Date.prototype.toDateInputValue = function () {
+    let local = new Date(this);
+    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+    return local.toJSON().slice(0, 10);
+  };
+
+  const dateNow = new Date().toDateInputValue();
+
   const [inputBox, setInputBox] = useState({
     name: '',
+    date: dateNow,
     plate: '',
   });
 
@@ -34,14 +44,9 @@ export const NewService = () => {
     }
   };
 
-  // eslint-disable-next-line no-extend-native
-  Date.prototype.toDateInputValue = function () {
-    let local = new Date(this);
-    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-    return local.toJSON().slice(0, 10);
+  const resetInput = () => {
+    setInputBox({ name: '', plate: '', date: dateNow });
   };
-
-  const dateNow = new Date().toDateInputValue();
 
   return (
     <Container>
@@ -56,6 +61,7 @@ export const NewService = () => {
               id="name"
               value={inputBox.name}
               onChange={validationInput}
+              onBlur={validationInput}
               required
             />
             <Label htmlFor="name">Serviço*</Label>
@@ -66,7 +72,8 @@ export const NewService = () => {
               type="date"
               name="date"
               id="date"
-              defaultValue={dateNow}
+              defaultValue={inputBox.date}
+              onChange={validationInput}
               style={{ marginTop: 0 }}
               required
             />
@@ -80,6 +87,7 @@ export const NewService = () => {
               id="plate"
               value={inputBox.plate}
               onChange={validationInput}
+              onBlur={validationInput}
               required
             />
             <Label htmlFor="plate">Placa*</Label>
@@ -87,7 +95,7 @@ export const NewService = () => {
           </InputBox>
         </Inputs>
         <Buttons>
-          <ButtonCancel>Cancelar</ButtonCancel>
+          <ButtonCancel onClick={resetInput}>Cancelar</ButtonCancel>
           <ButtonAdd>Adicionar</ButtonAdd>
         </Buttons>
       </NewServiceStyle>
