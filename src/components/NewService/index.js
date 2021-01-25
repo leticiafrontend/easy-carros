@@ -27,6 +27,7 @@ export const NewService = () => {
   const [inputBox, setInputBox] = useState({
     name: '',
     date: dateNow,
+    time: '00:00',
     plate: '',
   });
 
@@ -40,12 +41,45 @@ export const NewService = () => {
       input.style.borderBottom = '1px solid #F91919';
       input.nextElementSibling.style.color = '#F91919';
     } else {
-      input.nextElementSibling.style.color = '#707070';
+      if (input.nextElementSibling) {
+        input.nextElementSibling.style.color = '#707070';
+      }
     }
   };
 
   const resetInput = () => {
-    setInputBox({ name: '', plate: '', date: dateNow });
+    setInputBox({ name: '', plate: '', date: dateNow, time: '00:00' });
+  };
+
+  const nextServices = JSON.parse(localStorage.getItem('services')) || [];
+
+  const addService = () => {
+    const inputs = document.querySelectorAll('input');
+    if (inputBox.name.length <= 0 || inputBox.plate.length <= 0) {
+      inputs.forEach((input) => {
+        if (input.value === '') {
+          input.style.borderBottom = '1px solid #F91919';
+          input.nextElementSibling.style.color = '#F91919';
+        }
+      });
+    } else {
+      nextServices.push({
+        servico_realizado: inputBox.name,
+        data_agendamento: inputBox.date,
+        placa: inputBox.plate,
+        data_execucao: '',
+      });
+
+      localStorage.setItem('services', JSON.stringify(nextServices));
+
+      inputs.forEach((input) => {
+        input.style.borderBottom = '1px solid #707070 !important';
+        if (input.nextElementSibling) {
+          input.nextElementSibling.style.color = '#707070';
+        }
+      });
+      resetInput();
+    }
   };
 
   return (
@@ -72,13 +106,23 @@ export const NewService = () => {
               type="date"
               name="date"
               id="date"
-              defaultValue={inputBox.date}
+              value={inputBox.date}
               onChange={validationInput}
-              style={{ marginTop: 0 }}
               required
             />
             <Label htmlFor="data">Data de Agendamento*</Label>
             <Underline />
+          </InputBox>
+          <InputBox>
+            <Input
+              type="time"
+              name="time"
+              id="time"
+              value={inputBox.time}
+              onChange={validationInput}
+              style={{ borderBottom: '2px solid #0c5990' }}
+              required
+            />
           </InputBox>
           <InputBox>
             <Input
@@ -96,7 +140,9 @@ export const NewService = () => {
         </Inputs>
         <Buttons>
           <ButtonCancel onClick={resetInput}>Cancelar</ButtonCancel>
-          <ButtonAdd>Adicionar</ButtonAdd>
+          <ButtonAdd onClick={addService} type="submit">
+            Adicionar
+          </ButtonAdd>
         </Buttons>
       </NewServiceStyle>
     </Container>

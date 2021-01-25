@@ -17,6 +17,8 @@ import exit from '../../images/exit-icon.svg';
 import check from '../../images/check-icon.svg';
 
 export const Services = () => {
+  const servicesAg = JSON.parse(localStorage.getItem('services'));
+
   return (
     <Container>
       <ServicesStyle>
@@ -32,42 +34,30 @@ export const Services = () => {
             </tr>
           </Thead>
           <tbody>
-            <TrBody>
-              <NameService>Lavagem ecologica COVID-19</NameService>
-              <DateService>--</DateService>
-              <DateService>20/08/2020</DateService>
-              <Plate>MBB-1996</Plate>
-              <TdBody>
-                <ButtonRemove>
-                  <img src={exit} alt="exit" />
-                  Excluir
-                </ButtonRemove>
-              </TdBody>
-              <TdBody>
-                <ButtonFinish>
-                  <img src={check} alt="check" />
-                  Finalizar
-                </ButtonFinish>
-              </TdBody>
-            </TrBody>
-            <TrBody>
-              <NameService>Martelinho de Ouro</NameService>
-              <DateService>20/08/2020</DateService>
-              <DateService>20/08/2020</DateService>
-              <Plate>MBB-1996</Plate>
-              <TdBody>
-                <ButtonRemove>
-                  <img src={exit} alt="exit" />
-                  Excluir
-                </ButtonRemove>
-              </TdBody>
-              <TdBody>
-                <ButtonFinish>
-                  <img src={check} alt="check" />
-                  Finalizar
-                </ButtonFinish>
-              </TdBody>
-            </TrBody>
+            {servicesAg.map((service, index) => {
+              return (
+                <TrBody key={index}>
+                  <NameService>{service.servico_realizado}</NameService>
+                  <DateService>
+                    {service.data_execucao ? service.data_execucao : '--'}
+                  </DateService>
+                  <DateService>{service.data_agendamento}</DateService>
+                  <Plate>{service.placa}</Plate>
+                  <TdBody>
+                    <ButtonRemove>
+                      <img src={exit} alt="exit" />
+                      Excluir
+                    </ButtonRemove>
+                  </TdBody>
+                  <TdBody>
+                    <ButtonFinish>
+                      <img src={check} alt="check" />
+                      Finalizar
+                    </ButtonFinish>
+                  </TdBody>
+                </TrBody>
+              );
+            })}
           </tbody>
         </Table>
       </ServicesStyle>
