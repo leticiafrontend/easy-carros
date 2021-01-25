@@ -19,6 +19,12 @@ import check from '../../images/check-icon.svg';
 export const Services = () => {
   const servicesAg = JSON.parse(localStorage.getItem('services'));
 
+  const removeService = ({ target }) => {
+    const { id } = target;
+    servicesAg.splice(id, 1);
+    localStorage.setItem('services', JSON.stringify(servicesAg));
+  };
+
   return (
     <Container>
       <ServicesStyle>
@@ -44,13 +50,13 @@ export const Services = () => {
                   <DateService>{service.data_agendamento}</DateService>
                   <Plate>{service.placa}</Plate>
                   <TdBody>
-                    <ButtonRemove>
+                    <ButtonRemove id={index} onClick={removeService}>
                       <img src={exit} alt="exit" />
                       Excluir
                     </ButtonRemove>
                   </TdBody>
                   <TdBody>
-                    <ButtonFinish>
+                    <ButtonFinish id={index}>
                       <img src={check} alt="check" />
                       Finalizar
                     </ButtonFinish>
