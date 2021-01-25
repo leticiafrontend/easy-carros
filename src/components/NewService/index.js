@@ -42,6 +42,7 @@ export const NewService = () => {
       input.style.borderBottom = '1px solid #F91919';
       input.nextElementSibling.style.color = '#F91919';
     } else {
+      input.style.borderBottom = '1px solid #707070 !important';
       if (input.nextElementSibling) {
         input.nextElementSibling.style.color = '#707070';
       }
@@ -76,10 +77,7 @@ export const NewService = () => {
       localStorage.setItem('services', JSON.stringify(nextServices));
 
       inputs.forEach((input) => {
-        input.style.borderBottom = '1px solid #707070 !important';
-        if (input.nextElementSibling) {
-          input.nextElementSibling.style.color = '#707070';
-        }
+        console.log(input.value);
       });
       resetInput();
       showNotification();
@@ -108,6 +106,7 @@ export const NewService = () => {
               value={inputBox.name}
               onChange={validationInput}
               onBlur={validationInput}
+              style={{ marginTop: '5px' }}
               required
             />
             <Label htmlFor="name">Serviço*</Label>
@@ -145,6 +144,7 @@ export const NewService = () => {
               value={inputBox.plate}
               onChange={validationInput}
               onBlur={validationInput}
+              style={{ marginTop: '5px' }}
               required
             />
             <Label htmlFor="plate">Placa*</Label>

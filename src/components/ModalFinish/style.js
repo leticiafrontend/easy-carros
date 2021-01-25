@@ -86,8 +86,28 @@ export const ButtonFinish = styled.button`
   border: 1px solid #02e64a;
   padding: 12px 16px;
   font-weight: 600;
-  margin: 30px auto 0;
   &:hover {
     background-color: #19f9201f;
   }
+`;
+
+export const ButtonRemove = styled.button`
+  display: flex;
+  column-gap: 8px;
+  background-color: #fff;
+  color: #f91919;
+  border-radius: 30px;
+  border: 1px solid #f91919;
+  padding: 12px 16px;
+  font-weight: 600;
+  &:hover {
+    background-color: #f919191f;
+  }
+`;
+
+export const Buttons = styled.div`
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 `;

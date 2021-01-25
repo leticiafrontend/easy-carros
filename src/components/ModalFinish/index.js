@@ -7,8 +7,11 @@ import {
   ModalContainer,
   ModalContent,
   ButtonFinish,
+  ButtonRemove,
+  Buttons,
 } from './style';
 import check from '../../images/check-icon.svg';
+import exit from '../../images/exit-icon.svg';
 
 export const ModalFinish = () => {
   const nextServices = JSON.parse(localStorage.getItem('services')) || [];
@@ -44,6 +47,11 @@ export const ModalFinish = () => {
     }
   };
 
+  const closeModal = () => {
+    const finish = document.querySelector('#finish');
+    finish.style.display = 'none';
+  };
+
   return (
     <ModalContainer id="finish">
       <ModalContent>
@@ -77,10 +85,16 @@ export const ModalFinish = () => {
           className="error"
           style={{ color: '#f91919', textAlign: 'center', marginTop: '20px' }}
         ></p>
-        <ButtonFinish onClick={finishService}>
-          <img src={check} alt="check" />
-          Finalizar
-        </ButtonFinish>
+        <Buttons>
+          <ButtonFinish onClick={finishService}>
+            <img src={check} alt="check" />
+            Finalizar
+          </ButtonFinish>
+          <ButtonRemove onClick={closeModal}>
+            <img src={exit} alt="exit" />
+            Fechar
+          </ButtonRemove>
+        </Buttons>
       </ModalContent>
     </ModalContainer>
   );
