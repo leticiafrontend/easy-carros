@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Container } from '../../styles/container';
+import { Notification } from '../Notification';
 import {
   NewServiceStyle,
   H3,
@@ -79,7 +80,16 @@ export const NewService = () => {
         }
       });
       resetInput();
+      showNotification();
     }
+  };
+
+  const showNotification = () => {
+    const notification = document.querySelector('#notification');
+    notification.style.display = 'flex';
+    setTimeout(() => {
+      notification.style.display = 'none';
+    }, 1000);
   };
 
   return (
@@ -146,6 +156,7 @@ export const NewService = () => {
           </ButtonAdd>
         </Buttons>
       </NewServiceStyle>
+      <Notification />
     </Container>
   );
 };
