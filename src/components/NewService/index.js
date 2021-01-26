@@ -121,6 +121,7 @@ export const NewService = () => {
               type="date"
               name="date"
               id="date"
+              min={dateNow}
               value={inputBox.date}
               onChange={validationInput}
               required

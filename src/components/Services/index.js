@@ -57,34 +57,45 @@ export const Services = () => {
             </tr>
           </Thead>
           <tbody>
-            {storage.map((service, index) => {
-              return (
-                <TrBody key={index}>
-                  <NameService>{service.servico_realizado}</NameService>
-                  <DateService>
-                    {service.data_execucao ? service.data_execucao : '---'}
-                  </DateService>
-                  <DateService>{service.data_agendamento}</DateService>
-                  <Plate>{service.placa}</Plate>
-                  <TdBody>
-                    <ButtonRemove id={index} onClick={modalRemove}>
-                      <img src={exit} alt="exit" />
-                      Excluir
-                    </ButtonRemove>
-                  </TdBody>
-                  <TdBody>
-                    {service.data_execucao === '' ? (
-                      <ButtonFinish id={index} onClick={modalFinish}>
-                        <img src={check} alt="check" />
-                        Finalizar
-                      </ButtonFinish>
-                    ) : (
-                      ''
-                    )}
-                  </TdBody>
-                </TrBody>
-              );
-            })}
+            {storage.length > 0 ? (
+              storage.map((service, index) => {
+                return (
+                  <TrBody key={index}>
+                    <NameService>{service.servico_realizado}</NameService>
+                    <DateService>
+                      {service.data_execucao ? service.data_execucao : '---'}
+                    </DateService>
+                    <DateService>{service.data_agendamento}</DateService>
+                    <Plate>{service.placa}</Plate>
+                    <TdBody>
+                      <ButtonRemove id={index} onClick={modalRemove}>
+                        <img src={exit} alt="exit" />
+                        Excluir
+                      </ButtonRemove>
+                    </TdBody>
+                    <TdBody>
+                      {service.data_execucao === '' ? (
+                        <ButtonFinish id={index} onClick={modalFinish}>
+                          <img src={check} alt="check" />
+                          Finalizar
+                        </ButtonFinish>
+                      ) : (
+                        ''
+                      )}
+                    </TdBody>
+                  </TrBody>
+                );
+              })
+            ) : (
+              <TrBody>
+                <TdBody
+                  colSpan="6"
+                  style={{ padding: '30px 0', textAlign: 'center' }}
+                >
+                  Nenhum serviço agendado!
+                </TdBody>
+              </TrBody>
+            )}
           </tbody>
         </Table>
       </ServicesStyle>
