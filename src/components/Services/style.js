@@ -14,6 +14,9 @@ export const Table = styled.table`
 export const Thead = styled.thead`
   background-color: #0c5990;
   margin-bottom: 8px;
+  @media (max-width: 753px) {
+    display: none;
+  } ;
 `;
 
 export const Th = styled.th`
@@ -41,9 +44,14 @@ export const TrBody = styled.tr`
 `;
 
 export const TdBody = styled.td`
-  padding-left: 15px;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding: 15px;
+  @media (max-width: 753px) {
+    :not(:first-child),
+    :not(:nth-child(2)) {
+      display: block;
+    }
+    text-align: center;
+  } ;
 `;
 
 export const NameService = styled(TdBody)`
@@ -71,6 +79,10 @@ export const ButtonRemove = styled.button`
   &:hover {
     background-color: #f919191f;
   }
+  @media (max-width: 753px) {
+    width: 100%;
+    justify-content: center;
+  }
 `;
 
 export const ButtonFinish = styled.button`
@@ -84,5 +96,9 @@ export const ButtonFinish = styled.button`
   font-weight: 600;
   &:hover {
     background-color: #19f9201f;
+  }
+  @media (max-width: 753px) {
+    width: 100%;
+    justify-content: center;
   }
 `;

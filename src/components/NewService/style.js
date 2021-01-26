@@ -25,6 +25,11 @@ export const Inputs = styled.div`
   align-items: center;
   column-gap: 25px;
   margin-bottom: 42px;
+
+  @media (max-width: 920px) {
+    flex-direction: column;
+    row-gap: 20px;
+  }
 `;
 
 export const InputBox = styled.div`
@@ -81,6 +86,10 @@ export const Buttons = styled.div`
   display: flex;
   column-gap: 16px;
   justify-content: flex-end;
+  @media (max-width: 450px) {
+    flex-direction: column;
+    row-gap: 20px;
+  } ;
 `;
 
 export const ButtonCancel = styled.button`
@@ -93,6 +102,9 @@ export const ButtonCancel = styled.button`
   &:hover {
     background-color: #eee;
   }
+  @media (max-width: 450px) {
+    padding: 14px 30px;
+  } ;
 `;
 
 export const ButtonAdd = styled.button`
@@ -106,4 +118,7 @@ export const ButtonAdd = styled.button`
   &:hover {
     background-color: rgba(1, 107, 171, 1);
   }
+  @media (max-width: 450px) {
+    padding: 14px 30px;
+  } ;
 `;
