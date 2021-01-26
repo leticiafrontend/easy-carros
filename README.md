@@ -1,70 +1,80 @@
-# Getting Started with Create React App
+<br />
+<p align="center">
+  <img src="src/images/logo.svg" alt="Logo">
+  <h3 align="center">Easy Carros</h3>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+  <p align="center">
+    Sistema de agendamento de serviços automotivos.
+    <br />
+    <a href="https://easy-carros-leticia.netlify.app/"><strong>Veja o site online »</strong></a>
+    <br />
+    <br />
+  </p>
+</p>
 
-## Available Scripts
+## 📌 Índice
 
-In the project directory, you can run:
+- [Sobre o projeto](#sobre)
+  - [Feito com](#feito)
+- [Iniciando o projeto](#iniciando)
+  - [Pré-requisitos](#requisitos-minimos)
+  - [Instalação](#instalacao)
+- [Contato](#contato)
 
-### `yarn start`
+## 💻 Sobre o projeto <a name="sobre"></a>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<p align="center">
+  <img src="src/images/screenshot.png" alt="screenshot">
+</p>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<p>Esse projeto é um CRUD de serviços automotivos, nele é possível agendar, excluir e finalizar um serviço agendado. Para agendar um serviço basta informar no nome do serviço desejado, data, horário e placa do veículo e ao adicionar um agendamento ele é automoticamente listado na lista abaixo de serviços agendados. Ao clicar em finalizar é possível escolher qual foi o horário e data da execução do serviço. Todos os agendamentos ficam salvos no localStorage sendo removido apenas ao excluir o serviço.</p>
 
-### `yarn test`
+#### Features:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Agendar Serviço
+- Finalizar Serviço
+- Apagar Serviço
 
-### `yarn build`
+### 📝 Feito com <a name="feito"></a>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- [JavaScript ES6](http://es6-features.org/)
+- [React](https://reactjs.org/)
+- [Styled-components](https://styled-components.com/)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🎉 Iniciando o projeto <a name="iniciando"></a>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Para clonar e instalar o projeto em sua máquina, siga os passos abaixo.
 
-### `yarn eject`
+### ❗ Pré-requisitos <a name="requisitos-minimos"></a>
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Para rodar o projeto é necessário ter o <a href="https://nodejs.org/en/download/">Node</a> instalado na sua máquina.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 📥 Instalação <a name="instalacao"></a>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. Clone o repositório
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```sh
+git clone https://github.com/leticiafrontend/easy-carros.git
+```
 
-## Learn More
+2. Instale as dependências rodando o comando
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```sh
+yarn install
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. Digite o comando para ligar o servidor
 
-### Code Splitting
+```JS
+yarn start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+4. Acesse a URL http://localhost:3000/
 
-### Analyzing the Bundle Size
+## 📱 Contato <a name="contato"></a>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Letícia Silva - [LinkedIn](https://www.linkedin.com/in/leticia-alexandre/) - leticia.alesilva@outlook.com - [WhatsApp](https://api.whatsapp.com/send?phone=5511940106659)
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Outros projetos: [https://github.com/leticiafrontend/](https://github.com/leticiafrontend/)
+<br>
+<br><br>
