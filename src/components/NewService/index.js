@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container } from '../../styles/container';
 import { Notification } from '../Notification';
+import { Services } from '../Services';
+import { ModalFinish } from '../ModalFinish';
+import { ModalRemove } from '../ModalRemove';
 import {
   NewServiceStyle,
   H3,
@@ -14,6 +17,19 @@ import {
   ButtonCancel,
   ButtonAdd,
 } from './style';
+
+import {
+  TrBody,
+  NameService,
+  DateService,
+  Plate,
+  TdBody,
+  ButtonFinish,
+  ButtonRemove,
+} from '../Services/style';
+
+import exit from '../../images/exit-icon.svg';
+import check from '../../images/check-icon.svg';
 
 export const NewService = () => {
   // eslint-disable-next-line no-extend-native
@@ -53,7 +69,14 @@ export const NewService = () => {
     setInputBox({ name: '', plate: '', date: dateNow, time: '00:00' });
   };
 
-  const nextServices = JSON.parse(localStorage.getItem('services')) || [];
+  const [storage, setStorage] = useState(
+    JSON.parse(localStorage.getItem('services')) || [],
+  );
+
+  useEffect(() => {
+    const local = JSON.parse(localStorage.getItem('services')) || [];
+    setStorage(local);
+  }, []);
 
   const addService = () => {
     const inputName = document.querySelector('#name');
@@ -64,7 +87,7 @@ export const NewService = () => {
       inputName.nextElementSibling.style.color = '#F91919';
       inputPlate.nextElementSibling.style.color = '#F91919';
     } else {
-      nextServices.push({
+      storage.push({
         servico_realizado: inputBox.name,
         data_agendamento: `${inputBox.date.split('-').reverse().join('/')} ${
           inputBox.time
@@ -73,7 +96,9 @@ export const NewService = () => {
         data_execucao: '',
       });
 
-      localStorage.setItem('services', JSON.stringify(nextServices));
+      localStorage.setItem('services', JSON.stringify(storage));
+
+      setStorage(storage);
 
       inputName.style.borderBottom = '1px solid #707070';
       inputPlate.style.borderBottom = '1px solid #707070';
@@ -82,9 +107,6 @@ export const NewService = () => {
 
       resetInput();
       showNotification();
-      setTimeout(() => {
-        window.location.reload();
-      }, 900);
     }
   };
 
@@ -94,6 +116,18 @@ export const NewService = () => {
     setTimeout(() => {
       notification.style.display = 'none';
     }, 1000);
+  };
+
+  const modalFinish = ({ target }) => {
+    const finish = document.querySelector('#finish');
+    finish.style.display = 'flex';
+    finish.setAttribute('data-id', target.id);
+  };
+
+  const modalRemove = ({ target }) => {
+    const remove = document.querySelector('#remove');
+    remove.style.display = 'flex';
+    remove.setAttribute('data-id', target.id);
   };
 
   return (
@@ -164,6 +198,51 @@ export const NewService = () => {
         </Buttons>
       </NewServiceStyle>
       <Notification />
+      <Services
+        service={[
+          storage.length > 0 ? (
+            storage.map((service, index) => {
+              return (
+                <TrBody key={index}>
+                  <NameService>{service.servico_realizado}</NameService>
+                  <DateService>
+                    {service.data_execucao ? service.data_execucao : '---'}
+                  </DateService>
+                  <DateService>{service.data_agendamento}</DateService>
+                  <Plate>{service.placa}</Plate>
+                  <TdBody>
+                    <ButtonRemove id={index} onClick={modalRemove}>
+                      <img src={exit} alt="exit" />
+                      Excluir
+                    </ButtonRemove>
+                  </TdBody>
+                  <TdBody>
+                    {service.data_execucao === '' ? (
+                      <ButtonFinish id={index} onClick={modalFinish}>
+                        <img src={check} alt="check" />
+                        Finalizar
+                      </ButtonFinish>
+                    ) : (
+                      ''
+                    )}
+                  </TdBody>
+                </TrBody>
+              );
+            })
+          ) : (
+            <TrBody>
+              <TdBody
+                colSpan="6"
+                style={{ padding: '30px 0', textAlign: 'center' }}
+              >
+                Nenhum serviço agendado!
+              </TdBody>
+            </TrBody>
+          ),
+        ]}
+      />
+      <ModalFinish />
+      <ModalRemove />
     </Container>
   );
 };
