@@ -44,12 +44,18 @@ export const ModalFinish = () => {
 
       const finish = document.querySelector('#finish');
       finish.style.display = 'none';
+      window.location.reload();
     }
   };
 
   const closeModal = () => {
     const finish = document.querySelector('#finish');
     finish.style.display = 'none';
+
+    setExecution({ date: '', time: '' });
+
+    const erro = document.querySelector('.error');
+    erro.innerText = '';
   };
 
   return (
@@ -86,7 +92,7 @@ export const ModalFinish = () => {
           style={{ color: '#f91919', textAlign: 'center', marginTop: '20px' }}
         ></p>
         <Buttons>
-          <ButtonFinish onClick={finishService}>
+          <ButtonFinish onClick={finishService} id="button-finish">
             <img src={check} alt="check" />
             Finalizar
           </ButtonFinish>

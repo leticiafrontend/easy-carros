@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container } from '../../styles/container';
 import { ModalFinish } from '../ModalFinish';
 import { ModalRemove } from '../ModalRemove';
@@ -19,7 +19,16 @@ import exit from '../../images/exit-icon.svg';
 import check from '../../images/check-icon.svg';
 
 export const Services = () => {
-  const servicesAg = JSON.parse(localStorage.getItem('services')) || [];
+  const [storage, setStorage] = useState(
+    JSON.parse(localStorage.getItem('services')) || [],
+  );
+
+  useEffect(() => {
+    const local = localStorage.getItem('services');
+    if (local) {
+      setStorage(JSON.parse(local));
+    }
+  }, []);
 
   const modalFinish = ({ target }) => {
     const finish = document.querySelector('#finish');
@@ -48,7 +57,7 @@ export const Services = () => {
             </tr>
           </Thead>
           <tbody>
-            {servicesAg.map((service, index) => {
+            {storage.map((service, index) => {
               return (
                 <TrBody key={index}>
                   <NameService>{service.servico_realizado}</NameService>

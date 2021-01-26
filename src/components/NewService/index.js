@@ -82,6 +82,9 @@ export const NewService = () => {
 
       resetInput();
       showNotification();
+      setTimeout(() => {
+        window.location.reload();
+      }, 900);
     }
   };
 
@@ -154,7 +157,7 @@ export const NewService = () => {
         </Inputs>
         <Buttons>
           <ButtonCancel onClick={resetInput}>Cancelar</ButtonCancel>
-          <ButtonAdd onClick={addService} type="submit">
+          <ButtonAdd onClick={addService} type="submit" id="button-send">
             Adicionar
           </ButtonAdd>
         </Buttons>

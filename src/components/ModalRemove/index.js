@@ -19,6 +19,7 @@ export const ModalRemove = () => {
 
     const remove = document.querySelector('#remove');
     remove.style.display = 'none';
+    window.location.reload();
   };
 
   const closeModal = () => {
@@ -31,7 +32,9 @@ export const ModalRemove = () => {
       <ModalContent>
         <h2>Tem certeza que deseja excluir essa agendamento?</h2>
         <Buttons>
-          <ButtonYes onClick={removeService}>Sim</ButtonYes>
+          <ButtonYes onClick={removeService} id="button-remove">
+            Sim
+          </ButtonYes>
           <ButtonNo onClick={closeModal}>Não</ButtonNo>
         </Buttons>
       </ModalContent>
