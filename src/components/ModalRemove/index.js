@@ -11,6 +11,7 @@ export const ModalRemove = (props) => {
   const closeModal = () => {
     const remove = document.querySelector('#remove');
     remove.style.display = 'none';
+    remove.removeAttribute('data-id');
   };
 
   return (

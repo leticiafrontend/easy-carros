@@ -84,6 +84,8 @@ export const NewService = () => {
 
   const resetInput = () => {
     setInputBox({ name: '', plate: '', date: dateNow, time: '00:00' });
+    setHasErrorPlate(false);
+    setHasErrorName(false);
   };
 
   const [storage, setStorage] = useState(

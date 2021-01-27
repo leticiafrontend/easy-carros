@@ -32,6 +32,7 @@ export const ModalFinish = (props) => {
 
     const erro = document.querySelector('.error');
     erro.innerText = '';
+    finish.removeAttribute('data-id');
   };
 
   return (
