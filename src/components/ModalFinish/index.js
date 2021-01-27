@@ -13,12 +13,10 @@ import {
 import check from '../../images/check-icon.svg';
 import exit from '../../images/exit-icon.svg';
 
-export const ModalFinish = () => {
-  const nextServices = JSON.parse(localStorage.getItem('services')) || [];
-
+export const ModalFinish = (props) => {
   const [execution, setExecution] = useState({
-    date: '',
-    time: '',
+    dateFinish: '',
+    timeFinish: '',
   });
 
   const executionChange = ({ target }) => {
@@ -26,33 +24,11 @@ export const ModalFinish = () => {
     setExecution({ ...execution, [id]: value });
   };
 
-  const finishService = ({ target }) => {
-    const erro = document.querySelector('.error');
-    if (execution.date === '' || execution.time === '') {
-      erro.innerText = 'Preencha todos os campos!';
-    } else {
-      const id = document.querySelector('[data-id]');
-      const idData = id.dataset.id;
-      const date = execution.date.split('-').reverse().join('/');
-      const executionService = `${date} ${execution.time}`;
-
-      nextServices[idData].data_execucao = executionService;
-      localStorage.setItem('services', JSON.stringify(nextServices));
-
-      setExecution({ date: '', time: '' });
-      erro.innerText = '';
-
-      const finish = document.querySelector('#finish');
-      finish.style.display = 'none';
-      window.location.reload();
-    }
-  };
-
   const closeModal = () => {
     const finish = document.querySelector('#finish');
     finish.style.display = 'none';
 
-    setExecution({ date: '', time: '' });
+    setExecution({ dateFinish: '', timeFinish: '' });
 
     const erro = document.querySelector('.error');
     erro.innerText = '';
@@ -67,7 +43,7 @@ export const ModalFinish = () => {
             <Input
               type="date"
               name="date"
-              id="date"
+              id="dateFinish"
               value={execution.date}
               onChange={executionChange}
               style={{ borderBottom: '2px solid #0c5990' }}
@@ -79,7 +55,7 @@ export const ModalFinish = () => {
             <Input
               type="time"
               name="time"
-              id="time"
+              id="timeFinish"
               value={execution.time}
               onChange={executionChange}
               style={{ borderBottom: '2px solid #0c5990' }}
@@ -92,7 +68,7 @@ export const ModalFinish = () => {
           style={{ color: '#f91919', textAlign: 'center', marginTop: '20px' }}
         ></p>
         <Buttons>
-          <ButtonFinish onClick={finishService} id="button-finish">
+          <ButtonFinish onClick={props.finish} id="button-finish">
             <img src={check} alt="check" />
             Finalizar
           </ButtonFinish>

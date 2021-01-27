@@ -114,6 +114,33 @@ export const NewService = () => {
     }
   };
 
+  const finishService = useCallback(() => {
+    const inputDate = document.querySelector('#dateFinish');
+    const inputTime = document.querySelector('#timeFinish');
+    const erro = document.querySelector('.error');
+
+    if (inputDate.value === '' || inputTime.value === '') {
+      erro.innerText = 'Preencha todos os campos!';
+    } else {
+      const date = inputDate.value.split('-').reverse().join('/');
+      const time = inputTime.value;
+      const executionService = `${date} ${time}`;
+
+      const dataId = document.querySelector('[data-id]');
+      const id = dataId.dataset.id;
+      const servicesLocal = JSON.parse(localStorage.getItem('services'));
+      servicesLocal[id].data_execucao = executionService;
+      saveStorage(servicesLocal);
+      setStorage(servicesLocal);
+
+      const finish = document.querySelector('#finish');
+      finish.style.display = 'none';
+      inputDate.value = '';
+      inputTime.value = '';
+      erro.innerText = '';
+    }
+  }, [saveStorage]);
+
   const removeService = useCallback(() => {
     const dataId = document.querySelector('[data-id]');
     const id = dataId.dataset.id;
@@ -258,7 +285,7 @@ export const NewService = () => {
           ),
         ]}
       />
-      <ModalFinish />
+      <ModalFinish finish={finishService} />
       <ModalRemove remove={removeService} />
     </Container>
   );
