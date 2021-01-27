@@ -48,20 +48,37 @@ export const NewService = () => {
     plate: '',
   });
 
+  const [hasErrorName, setHasErrorName] = useState(false);
+  const [hasErrorPlate, setHasErrorPlate] = useState(false);
+
+  const styleErrorInput = {
+    borderBottom: '1px solid #f91919',
+    marginTop: '5px',
+  };
+
+  const styleErrorLabel = {
+    color: '#F91919',
+  };
+
   const validationInput = ({ target }) => {
-    const input = target;
     const { id, value } = target;
-
     setInputBox({ ...inputBox, [id]: value });
-
-    if (value.length <= 0) {
-      input.style.borderBottom = '1px solid #f91919';
-      input.nextElementSibling.style.color = '#F91919';
-    } else {
-      input.style.borderBottom = '1px solid #707070';
-      if (input.nextElementSibling) {
-        input.nextElementSibling.style.color = '#707070';
-      }
+    // eslint-disable-next-line default-case
+    switch (id) {
+      case 'name':
+        if (value.length <= 0) {
+          setHasErrorName(true);
+        } else {
+          setHasErrorName(false);
+        }
+        break;
+      case 'plate':
+        if (value.length <= 0) {
+          setHasErrorPlate(true);
+        } else {
+          setHasErrorPlate(false);
+        }
+        break;
     }
   };
 
@@ -84,19 +101,17 @@ export const NewService = () => {
   }, []);
 
   const addService = () => {
-    const inputName = document.querySelector('#name');
-    const inputPlate = document.querySelector('#plate');
-    if (inputBox.name.length <= 0 || inputBox.plate.length <= 0) {
-      inputName.style.borderBottom = '1px solid #F91919';
-      inputPlate.style.borderBottom = '1px solid #F91919';
-      inputName.nextElementSibling.style.color = '#F91919';
-      inputPlate.nextElementSibling.style.color = '#F91919';
-    } else {
-      inputName.style.borderBottom = '1px solid #707070';
-      inputPlate.style.borderBottom = '1px solid #707070';
-      inputName.nextElementSibling.style.color = '#707070';
-      inputPlate.nextElementSibling.style.color = '#707070';
+    const nameLength = inputBox.name.length;
+    const plateLength = inputBox.plate.length;
 
+    if (nameLength <= 0 || plateLength <= 0) {
+      if (nameLength <= 0) {
+        setHasErrorName(true);
+      }
+      if (plateLength <= 0) {
+        setHasErrorPlate(true);
+      }
+    } else {
       const servicesInfo = {
         servico_realizado: inputBox.name,
         data_agendamento: `${inputBox.date.split('-').reverse().join('/')} ${
@@ -111,6 +126,8 @@ export const NewService = () => {
       setStorage(storage);
       resetInput();
       showNotification();
+      setHasErrorPlate(false);
+      setHasErrorName(false);
     }
   };
 
@@ -188,10 +205,12 @@ export const NewService = () => {
               value={inputBox.name}
               onChange={validationInput}
               onBlur={validationInput}
-              style={{ marginTop: '5px' }}
+              style={hasErrorName ? styleErrorInput : { marginTop: '5px' }}
               required
             />
-            <Label htmlFor="name">Serviço*</Label>
+            <Label htmlFor="name" style={hasErrorName ? styleErrorLabel : {}}>
+              Serviço*
+            </Label>
             <Underline />
           </InputBox>
           <InputBox>
@@ -227,10 +246,12 @@ export const NewService = () => {
               value={inputBox.plate}
               onChange={validationInput}
               onBlur={validationInput}
-              style={{ marginTop: '5px' }}
+              style={hasErrorPlate ? styleErrorInput : { marginTop: '5px' }}
               required
             />
-            <Label htmlFor="plate">Placa*</Label>
+            <Label htmlFor="plate" style={hasErrorPlate ? styleErrorLabel : {}}>
+              Placa*
+            </Label>
             <Underline />
           </InputBox>
         </Inputs>
