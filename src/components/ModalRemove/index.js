@@ -7,21 +7,7 @@ import {
   ModalContent,
 } from './style';
 
-export const ModalRemove = () => {
-  const servicesAg = JSON.parse(localStorage.getItem('services')) || [];
-
-  const removeService = () => {
-    const id = document.querySelector('[data-id]');
-    const idData = id.dataset.id;
-
-    servicesAg.splice(idData, 1);
-    localStorage.setItem('services', JSON.stringify(servicesAg));
-
-    const remove = document.querySelector('#remove');
-    remove.style.display = 'none';
-    window.location.reload();
-  };
-
+export const ModalRemove = (props) => {
   const closeModal = () => {
     const remove = document.querySelector('#remove');
     remove.style.display = 'none';
@@ -32,7 +18,7 @@ export const ModalRemove = () => {
       <ModalContent>
         <h2>Tem certeza que deseja excluir essa agendamento?</h2>
         <Buttons>
-          <ButtonYes onClick={removeService} id="button-remove">
+          <ButtonYes onClick={props.remove} id="button-remove">
             Sim
           </ButtonYes>
           <ButtonNo onClick={closeModal}>Não</ButtonNo>

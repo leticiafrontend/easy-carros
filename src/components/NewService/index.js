@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Container } from '../../styles/container';
 import { Notification } from '../Notification';
 import { Services } from '../Services';
@@ -78,6 +78,11 @@ export const NewService = () => {
     setStorage(local);
   }, []);
 
+  const saveStorage = useCallback((storage) => {
+    const servicesStorage = JSON.stringify(storage);
+    localStorage.setItem('services', servicesStorage);
+  }, []);
+
   const addService = () => {
     const inputName = document.querySelector('#name');
     const inputPlate = document.querySelector('#plate');
@@ -87,28 +92,40 @@ export const NewService = () => {
       inputName.nextElementSibling.style.color = '#F91919';
       inputPlate.nextElementSibling.style.color = '#F91919';
     } else {
-      storage.push({
+      inputName.style.borderBottom = '1px solid #707070';
+      inputPlate.style.borderBottom = '1px solid #707070';
+      inputName.nextElementSibling.style.color = '#707070';
+      inputPlate.nextElementSibling.style.color = '#707070';
+
+      const servicesInfo = {
         servico_realizado: inputBox.name,
         data_agendamento: `${inputBox.date.split('-').reverse().join('/')} ${
           inputBox.time
         }`,
         placa: inputBox.plate,
         data_execucao: '',
-      });
+      };
 
-      localStorage.setItem('services', JSON.stringify(storage));
-
+      storage.push(servicesInfo);
+      saveStorage(storage);
       setStorage(storage);
-
-      inputName.style.borderBottom = '1px solid #707070';
-      inputPlate.style.borderBottom = '1px solid #707070';
-      inputName.nextElementSibling.style.color = '#707070';
-      inputPlate.nextElementSibling.style.color = '#707070';
-
       resetInput();
       showNotification();
     }
   };
+
+  const removeService = useCallback(() => {
+    const dataId = document.querySelector('[data-id]');
+    const id = dataId.dataset.id;
+
+    const servicesLocal = JSON.parse(localStorage.getItem('services'));
+    servicesLocal.splice(id, 1);
+    saveStorage(servicesLocal);
+    setStorage(servicesLocal);
+
+    const remove = document.querySelector('#remove');
+    remove.style.display = 'none';
+  }, [saveStorage]);
 
   const showNotification = () => {
     const notification = document.querySelector('#notification');
@@ -242,7 +259,7 @@ export const NewService = () => {
         ]}
       />
       <ModalFinish />
-      <ModalRemove />
+      <ModalRemove remove={removeService} />
     </Container>
   );
 };
