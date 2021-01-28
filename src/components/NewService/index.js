@@ -48,8 +48,10 @@ export const NewService = () => {
     plate: '',
   });
 
+  const [hasNotification, setHasNotification] = useState(false);
   const [hasErrorName, setHasErrorName] = useState(false);
   const [hasErrorPlate, setHasErrorPlate] = useState(false);
+  const [hasErrorRemove, setHasErrorRemove] = useState(false);
 
   const styleErrorInput = {
     borderBottom: '1px solid #f91919',
@@ -101,6 +103,13 @@ export const NewService = () => {
     const servicesStorage = JSON.stringify(storage);
     localStorage.setItem('services', servicesStorage);
   }, []);
+
+  const showNotification = () => {
+    setHasNotification(true);
+    setTimeout(() => {
+      setHasNotification(false);
+    }, 1000);
+  };
 
   const addService = () => {
     const nameLength = inputBox.name.length;
@@ -163,7 +172,6 @@ export const NewService = () => {
   const removeService = useCallback(() => {
     const dataId = document.querySelector('[data-id]');
     const id = dataId.dataset.id;
-
     const servicesLocal = JSON.parse(localStorage.getItem('services'));
     servicesLocal.splice(id, 1);
     saveStorage(servicesLocal);
@@ -173,14 +181,6 @@ export const NewService = () => {
     remove.style.display = 'none';
   }, [saveStorage]);
 
-  const showNotification = () => {
-    const notification = document.querySelector('#notification');
-    notification.style.display = 'flex';
-    setTimeout(() => {
-      notification.style.display = 'none';
-    }, 1000);
-  };
-
   const modalFinish = ({ target }) => {
     const finish = document.querySelector('#finish');
     finish.style.display = 'flex';
@@ -188,9 +188,17 @@ export const NewService = () => {
   };
 
   const modalRemove = ({ target }) => {
-    const remove = document.querySelector('#remove');
-    remove.style.display = 'flex';
-    remove.setAttribute('data-id', target.id);
+    if (target.id !== '') {
+      const remove = document.querySelector('#remove');
+      remove.style.display = 'flex';
+      remove.setAttribute('data-id', target.id);
+    } else {
+      setHasErrorRemove(true);
+      setTimeout(() => {
+        setHasErrorRemove(false);
+      }, 2000);
+    }
+    // adicionar notificação de erro
   };
 
   return (
@@ -264,7 +272,14 @@ export const NewService = () => {
           </ButtonAdd>
         </Buttons>
       </NewServiceStyle>
-      <Notification />
+      {hasNotification ? <Notification /> : ''}
+      {hasErrorRemove ? (
+        <h4 style={{ color: 'red', textAlign: 'center' }}>
+          Erro ao tentar excluir.
+        </h4>
+      ) : (
+        ''
+      )}
       <Services
         service={[
           storage.length > 0 ? (
