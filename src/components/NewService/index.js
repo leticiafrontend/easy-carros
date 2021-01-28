@@ -52,6 +52,7 @@ export const NewService = () => {
   const [hasErrorName, setHasErrorName] = useState(false);
   const [hasErrorPlate, setHasErrorPlate] = useState(false);
   const [hasErrorRemove, setHasErrorRemove] = useState(false);
+  const [hasErrorFinish, setHasErrorFinish] = useState(false);
 
   const styleErrorInput = {
     borderBottom: '1px solid #f91919',
@@ -182,9 +183,16 @@ export const NewService = () => {
   }, [saveStorage]);
 
   const modalFinish = ({ target }) => {
-    const finish = document.querySelector('#finish');
-    finish.style.display = 'flex';
-    finish.setAttribute('data-id', target.id);
+    if (target.id !== '') {
+      const finish = document.querySelector('#finish');
+      finish.style.display = 'flex';
+      finish.setAttribute('data-id', target.id);
+    } else {
+      setHasErrorFinish(true);
+      setTimeout(() => {
+        setHasErrorFinish(false);
+      }, 2000);
+    }
   };
 
   const modalRemove = ({ target }) => {
@@ -198,7 +206,6 @@ export const NewService = () => {
         setHasErrorRemove(false);
       }, 2000);
     }
-    // adicionar notificação de erro
   };
 
   return (
@@ -273,6 +280,13 @@ export const NewService = () => {
         </Buttons>
       </NewServiceStyle>
       {hasNotification ? <Notification /> : ''}
+      {hasErrorFinish ? (
+        <h4 style={{ color: 'red', textAlign: 'center' }}>
+          Erro ao tentar finalizar.
+        </h4>
+      ) : (
+        ''
+      )}
       {hasErrorRemove ? (
         <h4 style={{ color: 'red', textAlign: 'center' }}>
           Erro ao tentar excluir.
